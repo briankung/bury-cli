@@ -1,0 +1,1 @@
+Should follow all of the same behaviors as the `cp` command: https://linuxize.com/post/cp-command-in-linux/
