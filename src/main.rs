@@ -39,9 +39,7 @@ fn create_dir(path: &OsString) {
 
 fn execute_cp(cp_args: Vec<&OsString>) {
     let mut cmd = Command::new("cp");
-    for arg in cp_args.iter() {
-        cmd.arg(arg);
-    }
+    cmd.args(cp_args);
     cmd.spawn().expect("cp command failed");
 }
 
