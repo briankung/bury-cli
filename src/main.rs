@@ -19,21 +19,21 @@ fn main() {
         }
         _ => {
             let cp_args = get_cp_args(&args);
-            create_dir(&args);
+            create_dir(args.last().unwrap());
             execute_cp(cp_args);
         }
     };
 }
 
-fn create_dir(args: &[OsString]) {
-    let last = args.last().unwrap();
-    let path = PathBuf::from(last);
-    let parent = path.parent();
-    if let Some(parent_path) = parent {
-        let dir = std::fs::create_dir_all(parent_path);
-        if dir.is_err() {
-            eprint!("Directory `{:?}` could not be created", parent_path);
-        }
+fn create_dir(path: &OsString) {
+    let mut path = PathBuf::from(path);
+    if path.extension().is_some() {
+        path = path.parent().unwrap().into();
+    }
+
+    let dir = std::fs::create_dir_all(path.clone());
+    if dir.is_err() {
+        eprint!("Directory `{:?}` could not be created", path);
     }
 }
 
